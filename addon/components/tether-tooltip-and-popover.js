@@ -384,6 +384,10 @@ export default EmberTetherComponent.extend({
     if (!this.get('isShown')) {
       this.stopTether();
     }
+
+    if ('ontouchstart' in document.documentElement) {
+      $('body').children().on('mouseover', null, $.noop);
+    }
   },
 
   /*
@@ -511,6 +515,10 @@ export default EmberTetherComponent.extend({
     if ($target) {
       $target.removeAttr('aria-describedby');
       $target.off();
+
+      if ('ontouchstart' in document.documentElement) {
+        $('body').children().off('mouseover', null, $.noop);
+      }
     }
 
     this._super(...arguments); // Removes tether
